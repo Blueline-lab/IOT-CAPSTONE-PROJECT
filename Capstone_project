@@ -1,0 +1,121 @@
+﻿ 
+                                                                                                    CAPSTONE PROJECT
+                                                                                                        01.06.23
+                                                                                                     BORDON CLEMENT
+
+
+
+                                                                                                  
+
+
+
+                                                                                            Introduction
+                                                                                            Here i will present the final project from EDX IOT_CAPSTONE module
+ I choose to participate in the Team C, the thematic is to 
+
+"Develop an system for give more security in museums"
+                                                                                            In this problematic we can define to part, the risk for the museum could be security types (from natural event) or safety types (from human dammage type). The part of security will not be study in this document due to the largest part of this case.
+
+                                                                                            The safety part have equal two parts the malicious dammages and the dammages cause by mistake or uncarrefulness.
+
+                                                                                            By chance this two part could be covered by the same system.
+                                                                                            Indeed for protect the objects of the museum we could say "Don't touch" But is not a security measure cause the curiosity will be up of this measure and the malicious person too.
+
+                                                                                            So we have one solution for let the visitors contemplate the objects but prevent any dangerous proximity with the objects.
+                                                                                            We should define a safety zone to not pass by any unauthorized persons.
+
+                                                                                            For prevent any violation of the system rules an alarm or flash detection is not a complete measure because malicious person don't care of system alerts.
+
+ The only way for protect the objects after the alert was triggered will be the human presence.
+
+
+Tis project paper is compose in X parts as follow
+
+1 – Material needed
+
+
+
+
+
+
+
+
+1. Material needed
+
+
+
+List of hardware components :
+
+ 
+
+- MCU Raspberry Pico W
+3.3v
+Wifi connexion
+Mini USB Connexion
+Support UART, I2C, SPI
+
+
+The MCU for this project could a Raspberry Pi3 Pi4 but it is too much compute power for the need and too expensive to implement one RPI3 for each object to protect.
+It could be decentralized from the object and serve a futhers objects, But the wire management of this type of system give a complexity and follow the building infrastructure that could give problems.
+
+The best way is to implement one tiny cheap MCU by object, RPI Pico W give enouth compute power for two sensors and data transmission.
+This one support two threads, could run two loops.
+Support Wifi connection
+Mini usb connection for upload project.
+
+Finally i choose this MCU beacause it is good documented
+The firmwares are  update frequently and easy to update.
+
+
+
+ - Motion detection
+
+
+                                                                                                     - proximity detection
+
+                                                                                                     - Wiring power supply
+
+                                                                                                     - Server
+ - wifi
+
+
+
+
+
+
+2. Developement
+
+Detection
+
+For program the sensors to send data when they are trigerred we will save a program in the Pico W MCU.
+We could choose to make this program in C, C++ or Python
+For this paper and for the facility of developement i choose to use Python 3.9
+It could be a better way to do it in C++, It could give more complexity and time for develop. But a a C++ program offer a better accuracy about implement and manage sensors.
+
+
+Firmware
+We will upload the firmware Micropython on the MCU
+Past the module in boot mode and upload « rp2-pico-w-20230426-v1.20.0 »
+After a reboot of the MCU we can acces via Minicom, Thonny, Vscode extension
+to a shell from the Pico W.
+That’s will help us for doing test.
+
+For run any file at start we will need to name our main script « main.py »
+
+
+Tools
+
+Thonny IDE
+We will need one tool for have direct communication with our MCU, it will be a good way for doing direct test code.
+
+Ampy
+We will dowload Ampy tool 
+(apt-get install ampy)
+
+This tool offer the possibility to upload and remove permanent files on the MCU.
+
+
+
+
+
+ 
