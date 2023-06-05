@@ -69,14 +69,40 @@ The firmwares are  update frequently and easy to update.
 
 
  - Motion detection
+  I have choose this Motion detector for the system : https://www.digikey.fr/fr/products/detail/sparkfun-electronics/SEN-13285/5673793
+  I choose it cause it is a good value between price and quality.
+  It support the MCU voltage.
+  It work with one signal Pin for trigerred the MCU.
+  Should able to setting for distance of detection.
+  with the one wire signal we could use many pin of the Raspberry Pico W and use several of this sensors for cross the detection zone
+  
+
+- proximity detection
+    I talk abour proximity sensors in the previous documents.
+    But after some research this type of sensors offer a to short detection in a ranger of 3-30mm.
+    This type of sensor could not be used in this project.
 
 
-                                                                                                     - proximity detection
-
-                                                                                                     - Wiring power supply
-
-                                                                                                     - Server
- - wifi
+- Wiring power supply
+For powerring this MCU we will need a classic 3.3V converter, but that's mean all the objects of the museums should have wiring power alimentation for connect the 3.3v power supply
+It could be a godd idea to take in cost plans a Lipo and charger batterie for the case of hte museum is too old for have electric network add for the project, or in general in the case of any electrical work for this system couldn't be realized.
+                                                                                                     
+- Server
+  For this system, the plan is to implement a server for compute the data collected about alarm triggered.
+  We could organize the server with differents hardware, deppend of the client infrastructure :
+    Client have a a server rackmount
+      We could a a rack in this rackmount for compute the data from our system
+        and should include in the price cost this rack
+        
+     Client don't have any rackmount infrastructure
+      we have to deploy a standalone server and include it in the plan cost
+      
+   Here we can see than the cost for the system will really depend the objects to protect and the infrastructure already build.
+   
+   We could add than for the server parts the services will run in the "Serverless" categorie for a one Guard office.
+   But in 85% of time the services of detection on the server will not consume all the capacity of the server.
+  
+- wifi
 
 
 
