@@ -1,0 +1,28 @@
+version: '2'
+services:
+  influxdb:
+    image: influxdb:latest
+    restart: unless-stopped
+    ports:
+      - '8086:8086'
+    volumes:
+      - influxdb-storage:/var/lib/influxdb
+    environment:
+      - INFLUXDB_DB=db0
+      - INFLUXDB_ADMIN_USER=${INFLUXDB_USERNAME}
+      - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD}
+  mosquitto:
+    image: eclipse-mosquitto:1.6.12
+    restart: unless-stopped
+    ports:
+      - 1883:1883
+
+  subscriber:
+    image: alpine:latest
+    restart : unless-stopeed
+    ports:
+      - 1884:1884
+    volume: ./:/mosquitto/subscriber
+    entrypoint: ["cd ./mosquitto/subscriber"," python3 subscriber.py"]
+volumes:
+  influxdb-storage:

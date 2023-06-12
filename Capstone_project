@@ -14,12 +14,12 @@
  I choose to participate in the Team C, the thematic is to 
 
 "Develop an system for give more security in museums"
-                                                                                            In this problematic we can define to part, the risk for the museum could be security types (from natural event) or safety types (from human dammage type). The part of security will not be study in this document due to the largest part of this case.
+                                                                                            In this problematic we can define two parts, the risks for the museums could be security types (from natural event) or safety types (from human dammage type). The part of security will not be study in this document due to the largest part of this case.
 
                                                                                             The safety part have equal two parts the malicious dammages and the dammages cause by mistake or uncarrefulness.
 
                                                                                             By chance this two part could be covered by the same system.
-                                                                                            Indeed for protect the objects of the museum we could say "Don't touch" But is not a security measure cause the curiosity will be up of this measure and the malicious person too.
+                                                                                            Indeed for protect the objects of the museum we could say "Don't touch te objetcs" But is not a security measure cause the curiosity will be up of this measure and the malicious person too.
 
                                                                                             So we have one solution for let the visitors contemplate the objects but prevent any dangerous proximity with the objects.
                                                                                             We should define a safety zone to not pass by any unauthorized persons.
@@ -29,18 +29,27 @@
  The only way for protect the objects after the alert was triggered will be the human presence.
 
 
-Tis project paper is compose in X parts as follow
-
-1 – Material needed
 
 
 
+Github page of the project : https://github.com/Blueline-lab/IOT-CAPSTONE-PROJECT
 
 
 
 
 
-1. Material needed
+
+
+
+
+This project paper is compose in 3 parts as follow
+
+
+1. Material needed adn configuration
+
+2. Developement
+
+3. Eventuals Add-ons 
 
 
 
@@ -55,7 +64,7 @@ Mini USB Connexion
 Support UART, I2C, SPI
 
 
-The MCU for this project could a Raspberry Pi3 Pi4 but it is too much compute power for the need and too expensive to implement one RPI3 for each object to protect.
+The MCU for this project could a Raspberry Pi 3 Pi 4 but it is too much compute power for the need and expensive to implement one RPI3 for each objects to protect.
 It could be decentralized from the object and serve a futhers objects, But the wire management of this type of system give a complexity and follow the building infrastructure that could give problems.
 
 The best way is to implement one tiny cheap MCU by object, RPI Pico W give enouth compute power for two sensors and data transmission.
@@ -63,46 +72,120 @@ This one support two threads, could run two loops.
 Support Wifi connection
 Mini usb connection for upload project.
 
-Finally i choose this MCU beacause it is good documented
+Finally i choose this MCU because it is good documented
 The firmwares are  update frequently and easy to update.
 
 
 
- - Motion detection
-  I have choose this Motion detector for the system : https://www.digikey.fr/fr/products/detail/sparkfun-electronics/SEN-13285/5673793
+ - Motion detecors
+  
+I have choose this Motion detector for the system : 
+
+https://www.digikey.fr/fr/products/detail/sparkfun-electronics/SEN-13285/5673793
+
   I choose it cause it is a good value between price and quality.
   It support the MCU voltage.
   It work with one signal Pin for trigerred the MCU.
-  Should able to setting for distance of detection.
-  with the one wire signal we could use many pin of the Raspberry Pico W and use several of this sensors for cross the detection zone
-  
 
-- proximity detection
-    I talk abour proximity sensors in the previous documents.
+  Should able to configure for distance of detection.
+  with the one wire signal we could use many pin of the Raspberry Pico W and use several of this sensors for cross the detection zone
+ 
+The important step for this sensor will be to configure the distance of detection.
+
+Longer detection could give more false alert
+Shorter will not prevent and detect any contact
+
+
+
+
+- Proximity detection
+    
+I talk abour proximity sensors in the previous documents.
     But after some research this type of sensors offer a to short detection in a ranger of 3-30mm.
     This type of sensor could not be used in this project.
 
 
 - Wiring power supply
+
 For powerring this MCU we will need a classic 3.3V converter, but that's mean all the objects of the museums should have wiring power alimentation for connect the 3.3v power supply
-It could be a godd idea to take in cost plans a Lipo and charger batterie for the case of hte museum is too old for have electric network add for the project, or in general in the case of any electrical work for this system couldn't be realized.
+
+It could be a good idea to take in cost plans a Lipo and charger batterie for the case of hte museum is too old for have electric network add for the project, or in general in the case of any electrical work for this system couldn't be realized.
                                                                                                      
+
 - Server
-  For this system, the plan is to implement a server for compute the data collected about alarm triggered.
-  We could organize the server with differents hardware, deppend of the client infrastructure :
-    Client have a a server rackmount
-      We could a a rack in this rackmount for compute the data from our system
-        and should include in the price cost this rack
-        
-     Client don't have any rackmount infrastructure
-      we have to deploy a standalone server and include it in the plan cost
-      
-   Here we can see than the cost for the system will really depend the objects to protect and the infrastructure already build.
-   
-   We could add than for the server parts the services will run in the "Serverless" categorie for a one Guard office.
-   But in 85% of time the services of detection on the server will not consume all the capacity of the server.
   
-- wifi
+For this system, the plan is to implement a server for compute the data collected about alarm triggered.
+  
+We could organize the server with differents hardware, deppend of the client infrastructure :
+    
+	Client have a a server rackmount
+      	We could a a rack in this rackmount for compute the data from our 		system and should include in the price cost this rack
+        
+     	Client don't have any rackmount infrastructure
+      	we have to deploy a standalone server and include it in the plan 		cost
+      
+Here we can see than the cost for the system will really depend the objects to protects and the infrastructure already build.
+   
+Good consideration to take :
+The services for this infrastructure will run in the "Serverless" categorie for a one Guard office.
+In 85% of time the services of detection on the server will not consume all the capacity of the server.
+  
+
+- Wifi Access point
+
+	We will need for this project a wifi acces point for connect the MCU to the server.
+
+I choose to implement this Wifi router « TP LINK M600 Archer »
+and add some repeaters if the museum is too large for have a coverage from the router.
+
+
+
+- Redundancy
+	
+	As we seen this system cannot have fail, so it wiil be important to think about redundancy. For assist any material or electrical fails.
+We will need to put pair of hardware for the server part.
+Only on the server part because on the sensors part the hardware could be replace and configured quiclky.
+
+We need a pair of server and a pair of Wifi AP Router.
+The networks flux should be open from any point to any point of he system.
+
+First if one Wifi AP is down the other one will replace the first.
+
+Secondly because if we have two server we need to have the sames data stored on each. So we will need to periodically synchronize the two server.
+
+
+
+
+
+
+
+
+
+
+
+Here a plan of the project
+In the the Git project we will show a plan made with Packet Tracer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -126,7 +209,7 @@ After a reboot of the MCU we can acces via Minicom, Thonny, Vscode extension
 to a shell from the Pico W.
 That’s will help us for doing test.
 
-For run any file at start we will need to name our main script « main.py »
+For run any file at start we will need to name our main script « main.py » in Pico filesystem.
 
 
 Tools
@@ -139,6 +222,93 @@ We will dowload Ampy tool
 (apt-get install ampy)
 
 This tool offer the possibility to upload and remove permanent files on the MCU.
+
+All this tools are free.
+
+
+
+
+
+
+Here find the source code and demonstration of the project :
+https://github.com/Blueline-lab/IOT-CAPSTONE-PROJECT
+
+
+The communication protole used for this system is MQTT Message Queuing Telemetry Transport by Wifi 
+
+
+
+
+
+
+For the development part we will need 
+
+One publisher (The MCU)
+One subscriber (The server)
+
+On the publisher part, when a signal is triggered it send a dataframe with the date and time, the position of the alert.
+main.py and publisher.py should be upload on the Rasberry Pico.
+When the Pico start the main.py file will be run.
+
+The MQTT broker listen all the signals and send it on any devices if the devices are in subscribe mode with the same topic.
+
+The suscriber.py file will listen for signal from the broker and process the signal when it come.
+
+In this case the subscriber.py file store the signal in a database.
+
+We will need a user application or website for alert guars when a ne alert come and show datas to the users.
+
+We can imagine a phone application whi implement a mqtt subscriber for get quickly the alarm from the broker.
+
+
+The data collected are stored on a INFLUXDB database.
+I choose this system because this DB is good for the quick request.
+Particulary good thing for IOT projects.
+
+
+
+Precisions about files :
+
+For the DB credential i use Env variables, it’s useful to use configuration files.
+But with the environement variables the security is better because we never have to share the credentials and we can share the code ease.
+
+
+For the server part we could implement Docker on the server with docker-compose we could make a file where we store the env variables for DB credential and other configuration variables needed.
+
+Let see the docker-compose.yaml file where we can find the three services needed for the server part.
+
+First we have the Database with the env variable to get ata start, the ports options for bridge with the server, the volume, where datas are stored.
+
+Secondly we have the Mosquitto MQTT Broker who always restart
+
+And finnaly a AlpineOS image, for run our subscriber script.
+
+In this case we use the broker and a subscriber on the same server for store the data collected. 
+
+
+
+
+
+
+
+
+
+
+
+
+3. Could be Add-ons 
+
+
+As we saw in the previous exam about the general costs and revenus plan for this project, the add-ons and subscriptions could be a good thing for develop the project. It could give the necessary funds and insure more safety for the system.
+
+- Computer vision Add-on
+	
+	A good add-on could be to implement camera from the building for computer vision proximity detection, by calculate in any time the pixels between a barrier and the object we could know when a unnatural number of x pixels is triggered. With a alarm it will be necessary to control the result by human before any intervention.
+
+The same thing could detect the density of population around one object and trigger not an “alarm” but signify a point of risk 
+A point to follow with attention.
+
+ 
 
 
 
