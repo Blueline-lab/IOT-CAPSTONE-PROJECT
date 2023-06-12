@@ -1,25 +1,42 @@
 ﻿ 
                                                                                                     CAPSTONE PROJECT
-                                                                                                        01.06.23
-                                                                                                     
+ 
+
+01.06.23
 
 
 
-                                                                                                  
+
+
+
+
+
+Additional source of the project : 
+
+https://github.com/Blueline-lab/IOT-CAPSTONE-PROJECT                                                                                              
 
 
 
                                                                                             Introduction
-                                                                                            Here i will present the final project from EDX IOT_CAPSTONE module
- I choose to participate in the Team C, the thematic is to 
+                                                                                            Here i will present the final project of the Curtin University IOT_CAPSTONE module
+ 
+I choose to participate in the Team C, the thematic is to 
 
 "Develop an system for give more security in museums"
-                                                                                            In this problematic we can define two parts, the risks for the museums could be security types (from natural event) or safety types (from human dammage type). The part of security will not be study in this document due to the largest part of this case.
+ In this problematic we can define two parts, the risks for the museums could be security types (from natural event) or safety types (from humans dammages types). 
 
-                                                                                            The safety part have equal two parts the malicious dammages and the dammages cause by mistake or uncarrefulness.
+The part of security will not be study in this document due to the largest of this case.
+
+                                                                                            The safety part have equally two parts the malicious dammages and the dammages causes by mistakes or uncarrefulness.
 
                                                                                             By chance this two part could be covered by the same system.
-                                                                                            Indeed for protect the objects of the museum we could say "Don't touch te objetcs" But is not a security measure cause the curiosity will be up of this measure and the malicious person too.
+                                                                                            
+
+Indeed for protect the objects of the museum we could say 
+
+"Don't touch the objetcs" 
+
+But is not a safety measure cause the curiosity will be up of this measure and the malicious person too.
 
                                                                                             So we have one solution for let the visitors contemplate the objects but prevent any dangerous proximity with the objects.
                                                                                             We should define a safety zone to not pass by any unauthorized persons.
@@ -32,7 +49,6 @@
 
 
 
-Github page of the project : https://github.com/Blueline-lab/IOT-CAPSTONE-PROJECT
 
 
 
@@ -41,15 +57,14 @@ Github page of the project : https://github.com/Blueline-lab/IOT-CAPSTONE-PROJE
 
 
 
+This paper is compose in three parts as follow :
 
-This project paper is compose in 3 parts as follow
 
-
-1. Material needed adn configuration
+1. Material needed and configuration
 
 2. Developement
 
-3. Eventuals Add-ons 
+3. Add-ons and important point
 
 
 
@@ -77,7 +92,7 @@ The firmwares are  update frequently and easy to update.
 
 
 
- - Motion detecors
+- Motion detecors
   
 I have choose this Motion detector for the system : 
 
@@ -140,6 +155,9 @@ and add some repeaters if the museum is too large for have a coverage from the r
 
 
 
+
+
+
 - Redundancy
 	
 	As we seen this system cannot have fail, so it wiil be important to think about redundancy. For assist any material or electrical fails.
@@ -152,13 +170,6 @@ The networks flux should be open from any point to any point of he system.
 First if one Wifi AP is down the other one will replace the first.
 
 Secondly because if we have two server we need to have the sames data stored on each. So we will need to periodically synchronize the two server.
-
-
-
-
-
-
-
 
 
 
@@ -183,16 +194,8 @@ In the the Git project we will show a plan made with Packet Tracer
 
 
 
-
-
-
-
-
-
-
-
-
 2. Developement
+
 
 Detection
 
@@ -227,9 +230,6 @@ All this tools are free.
 
 
 
-
-
-
 Here find the source code and demonstration of the project :
 https://github.com/Blueline-lab/IOT-CAPSTONE-PROJECT
 
@@ -245,6 +245,7 @@ For the development part we will need
 
 One publisher (The MCU)
 One subscriber (The server)
+Multiples subscriber (Phones guards and staff)
 
 On the publisher part, when a signal is triggered it send a dataframe with the date and time, the position of the alert.
 main.py and publisher.py should be upload on the Rasberry Pico.
@@ -254,23 +255,32 @@ The MQTT broker listen all the signals and send it on any devices if the devices
 
 The suscriber.py file will listen for signal from the broker and process the signal when it come.
 
+We need to create a mobile App for subscribe and receive the alert in real time.
+The distribution of this ap should be controlled.
+We could distribute or install the .apk (Android) for each phones.
+And generate code or hash to enter for install the App.
+This code or hash will be generate from the secure server and are limited to the number of phones distribued.
+An web application for mobile phone enrolement should be a better option in a second time.
+
 In this case the subscriber.py file store the signal in a database.
 
-We will need a user application or website for alert guars when a ne alert come and show datas to the users.
+We will need a user application or website for alert guards when a alert come and show datas to the users.
 
-We can imagine a phone application whi implement a mqtt subscriber for get quickly the alarm from the broker.
+We can imagine a phone application with a MQTT subscriber for get quickly the alarm from the broker.
 
 
 The data collected are stored on a INFLUXDB database.
 I choose this system because this DB is good for the quick request.
 Particulary good thing for IOT projects.
-
+The credentials point have good security.
+The process it to distribute token for app for publisher and for all users of the Influx Database. The Token are generate from an unique panel control.
+This process guarantee a good security connexion option.
 
 
 Precisions about files :
 
 For the DB credential i use Env variables, it’s useful to use configuration files.
-But with the environement variables the security is better because we never have to share the credentials and we can share the code ease.
+But with the environement variables we never have to share the credentials and we can share the code ease. We have to define it in the server.
 
 
 For the server part we could implement Docker on the server with docker-compose we could make a file where we store the env variables for DB credential and other configuration variables needed.
@@ -285,12 +295,8 @@ And finnaly a AlpineOS image, for run our subscriber script.
 
 In this case we use the broker and a subscriber on the same server for store the data collected. 
 
-
-
-
-
-
-
+For time questions i don’t make for now the client part.
+The Sensors and server part is the heart of this system and it wa necessary to begin with that.
 
 
 
@@ -303,11 +309,42 @@ As we saw in the previous exam about the general costs and revenus plan for this
 
 - Computer vision Add-on
 	
-	A good add-on could be to implement camera from the building for computer vision proximity detection, by calculate in any time the pixels between a barrier and the object we could know when a unnatural number of x pixels is triggered. With a alarm it will be necessary to control the result by human before any intervention.
+	A good add-on could be to implement camera from the building for computer vision proximity detection, by calculate in any time the pixels between a barrier/limits and the object we could know when a unnatural (colored) number of x pixels is triggered. 
+With a alarm it will be necessary to control the result by human before any intervention.
 
 The same thing could detect the density of population around one object and trigger not an “alarm” but signify a point of risk 
 A point to follow with attention.
 
+
+- Visualisations and statistics application
+
+For visualize or map the point of visitors interest we could implement a web locale application who query the database and plot the data for make graph map or charts, Grafana could be a all un one solution but we could make the application too.
+With an add-on we can sure make safety statistics.
+
+
+- Make test partners and contact
+	This point is the most important, because we will need to test the system 	for long time and so we will need to find partners tester.
+	This partners will give views points on the system what’s wrong what’s 	should be update. It will be important to have a strong network of 
+	partners for be sure than all the bugs and mistake are catch. 
+
+
+
+
+ROADMAP
+
+
+→ Get funds and buy the hardware parts
+→ Find testers partners build a strong network with them
+→ Connect and test the system with the new partners 
+→ Find the mistake and important point to work 
+→ Give constant update on the system following the return
+→   
+
+
+
+
+Finaly in the add-on part the most important thing is to stay in touch with the new technologies, for find how upgrade our system efficiently.
+And stay near of the clients and partners, because for prevent any risk or mistake it’s import to ear and communicate with all the partners.
  
 
 
